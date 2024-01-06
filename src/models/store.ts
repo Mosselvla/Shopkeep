@@ -20,19 +20,15 @@ export class Store {
         return this._gold;
     }
 
-    private set gold(_gold: number) {
-        this.gold = _gold;
-    }
-
     public get inventory(): Inventory {
         return this._inventory;
     }
 
     public addGold(_amount: number): void {
-        this.gold += _amount;
+        this._gold = this._gold + _amount;
     }
 
     public subtractGold(_amount: number): void {
-        this.gold -= _amount;
+        this._gold = this.gold - _amount;
     }
 }

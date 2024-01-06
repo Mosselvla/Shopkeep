@@ -18,5 +18,6 @@ console.log("The day breaks as you unlock the front door and enter your shop. Yo
 // game loop
 while (gameController.isRunning) {
     var action = readsync.question("What would you like to do?");
+    console.clear();
     gameController.handleAction(action);
 }

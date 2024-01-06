@@ -21,10 +21,10 @@ export class Inventory {
                 this._inventory.set(0, _product);
                 _product.key = 0;
                 console.log(
-                    "placement success!",
+                    "The",
                     _product.name,
-                    "was placed with key",
-                    _product.key
+                    "was placed in inventory slot",
+                    _product.key + "."
                 );
                 return true;
             } else {
@@ -37,10 +37,10 @@ export class Inventory {
                             this._inventory.set(i, _product);
                             _product.key = i;
                             console.log(
-                                "placement success!",
+                                "The",
                                 _product.name,
-                                "was placed with key",
-                                _product.key
+                                "was placed in inventory slot",
+                                _product.key + "."
                             );
                             break;
                         }
@@ -48,13 +48,17 @@ export class Inventory {
                     return true;
                 } else {
                     // no room in inventory
-                    console.log("placement failed: no room left in inventory!");
+                    console.log(
+                        "There is no more room left in your inventory!"
+                    );
                     return false;
                 }
             }
         }
         // product with key already exists in inventory
-        console.log("placement failed: product with key already exists!");
+        console.log(
+            "A product with the same key already exists in your inventory!"
+        );
         return false;
     }
 
