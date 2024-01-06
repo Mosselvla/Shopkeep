@@ -12,11 +12,15 @@ export class Store {
         this._workbench = new Workbench();
     }
 
+    public get workbench(): Workbench {
+        return this._workbench;
+    }
+
     public get gold(): number {
         return this._gold;
     }
 
-    public set gold(_gold: number) {
+    private set gold(_gold: number) {
         this.gold = _gold;
     }
 

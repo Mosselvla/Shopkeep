@@ -1,4 +1,4 @@
-import { Weapon } from "./products/weapon";
+import { Equipment } from "./products/equipment";
 
 enum Quality {
     BASIC,
@@ -13,7 +13,7 @@ export class Workbench {
         this._workbenchQuality = Quality.BASIC;
     }
 
-    public repairWeapon(_weapon: Weapon) {
+    public repairWeapon(_weapon: Equipment) {
         switch (this._workbenchQuality) {
             case Quality.BASIC:
                 _weapon.condition <= 80
