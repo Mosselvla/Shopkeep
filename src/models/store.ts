@@ -1,13 +1,15 @@
 import { Inventory } from "./inventory";
-import { Product } from "./product";
+import { Workbench } from "./workbench";
 
 export class Store {
     private _gold: number;
     private _inventory: Inventory;
+    private _workbench: Workbench;
 
     constructor() {
         this._gold = 500;
         this._inventory = new Inventory();
+        this._workbench = new Workbench();
     }
 
     public get gold(): number {
@@ -22,7 +24,11 @@ export class Store {
         return this._inventory;
     }
 
-    public addGold(amount: number): void {
-        this.gold += amount;
+    public addGold(_amount: number): void {
+        this.gold += _amount;
+    }
+
+    public subtractGold(_amount: number): void {
+        this.gold -= _amount;
     }
 }

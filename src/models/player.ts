@@ -5,8 +5,8 @@ export class Player {
         this._name = "";
     }
 
-    public set name(name: string) {
-        this._name = name;
+    public set name(_name: string) {
+        this._name = _name;
     }
 
     public get name(): string {

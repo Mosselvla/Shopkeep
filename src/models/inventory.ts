@@ -1,4 +1,4 @@
-import { Product } from "./product";
+import { Product } from "./products/product";
 
 export class Inventory {
     private _inventory: Map<number, Product>;
@@ -13,19 +13,19 @@ export class Inventory {
         return this._inventory;
     }
 
-    public placeInInventory(product: Product): boolean {
-        if (!product.key) {
+    public placeInInventory(_product: Product): boolean {
+        if (!_product.key) {
             if (this._inventory.size === 0) {
-                this._inventory.set(0, product);
-                product.key = 0;
+                // inventory is empty
+                // freely place the item
+                this._inventory.set(0, _product);
+                _product.key = 0;
                 console.log(
                     "placement success!",
-                    product.name,
+                    _product.name,
                     "was placed with key",
-                    product.key
+                    _product.key
                 );
-                console.log("current inventory: ");
-                console.log(this._inventory);
                 return true;
             } else {
                 if (this._inventory.size < this._maxInventorySize) {
@@ -34,16 +34,14 @@ export class Inventory {
                     for (let i = 0; i < this._inventory.size + 1; i++) {
                         if (!this._inventory.get(i)) {
                             // spot is free, place product in inventory
-                            this._inventory.set(i, product);
-                            product.key = i;
+                            this._inventory.set(i, _product);
+                            _product.key = i;
                             console.log(
                                 "placement success!",
-                                product.name,
+                                _product.name,
                                 "was placed with key",
-                                product.key
+                                _product.key
                             );
-                            console.log("current inventory: ");
-                            console.log(this._inventory);
                             break;
                         }
                     }

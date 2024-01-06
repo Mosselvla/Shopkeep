@@ -1,6 +1,6 @@
 import * as readline from "readline";
 import { GameController } from "./controllers/gameController";
-import { Product } from "./models/product";
+import { Product } from "./models/products/product";
 
 // controllers/services
 const gameController: GameController = new GameController();
