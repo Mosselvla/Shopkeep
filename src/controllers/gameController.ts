@@ -1,13 +1,20 @@
+import { Player } from "../models/player";
+import { Store } from "../models/store";
+
 export class GameController {
-  private _playerName: string = "";
+    private _player: Player;
+    private _store: Store;
 
-  constructor() {}
+    constructor() {
+        this._player = new Player();
+        this._store = new Store();
+    }
 
-  public set playerName(name: string) {
-    this._playerName = name;
-  }
+    public get player(): Player {
+        return this._player;
+    }
 
-  public get playerName(): string {
-    return this._playerName;
-  }
+    public get store(): Store {
+        return this._store;
+    }
 }
