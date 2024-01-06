@@ -96,6 +96,8 @@ export class GameController {
                 if (answer === "y" || answer == "n") {
                     hasDecided = true;
                     if (answer === "y") {
+                        this.store.addGold(wantedItem.price);
+                        this.store.inventory.removeFromInventory(wantedItem);
                         console.log(
                             "You place the",
                             wantedItem.name,
@@ -112,8 +114,6 @@ export class GameController {
                             this.store.gold,
                             "gold."
                         );
-                        this.store.addGold(wantedItem.price);
-                        this.store.inventory.removeFromInventory(wantedItem);
                     } else {
                         console.log(
                             `You decline. "Oh well. I'll have to look elsewhere. It's a fine piece."`
