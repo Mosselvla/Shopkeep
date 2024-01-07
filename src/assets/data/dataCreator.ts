@@ -1,9 +1,10 @@
-import { Inventory } from "../../models/inventory";
+import { GameController } from "../../controllers/gameController";
 import { Consumable, Effect } from "../../models/products/consumable";
 import { Material, Equipment, Color } from "../../models/products/equipment";
 
 export class DataCreator {
-    createData(_inventory: Inventory) {
+    createData(_gC: GameController) {
+        // create products for store
         const eq1: Equipment = new Equipment();
         const eq2: Equipment = new Equipment();
         const eq3: Equipment = new Equipment();
@@ -58,14 +59,15 @@ export class DataCreator {
         csm3.price = 115;
         csm3.effect = Effect.Wisening;
 
-        _inventory.placeInInventory(eq1);
-        _inventory.placeInInventory(eq2);
-        _inventory.placeInInventory(eq3);
-        _inventory.placeInInventory(eq4);
-        _inventory.placeInInventory(eq5);
-        _inventory.placeInInventory(eq6);
-        _inventory.placeInInventory(csm1);
-        _inventory.placeInInventory(csm2);
-        _inventory.placeInInventory(csm3);
+        // place products in inventory
+        _gC.store.inventory.placeInInventory(eq1);
+        _gC.store.inventory.placeInInventory(eq2);
+        _gC.store.inventory.placeInInventory(eq3);
+        _gC.store.inventory.placeInInventory(eq4);
+        _gC.store.inventory.placeInInventory(eq5);
+        _gC.store.inventory.placeInInventory(eq6);
+        _gC.store.inventory.placeInInventory(csm1);
+        _gC.store.inventory.placeInInventory(csm2);
+        _gC.store.inventory.placeInInventory(csm3);
     }
 }

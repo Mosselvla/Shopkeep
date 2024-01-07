@@ -1,8 +1,6 @@
-import * as readsync from "readline-sync";
-import { randomIntFromInterval } from "../lib/utils";
 import { Player } from "../models/player";
-import { Product } from "../models/products/product";
 import { Store } from "../models/store";
+import { CustomerServiceController } from "./customerServiceController";
 
 export enum Action {
     Move,
@@ -12,11 +10,15 @@ export class GameController {
     private _isRunning: boolean;
     private _player: Player;
     private _store: Store;
+    private _customerServiceController: CustomerServiceController;
 
     constructor() {
         this._isRunning = true;
-        this._player = new Player();
         this._store = new Store();
+        this._player = new Player();
+        this._customerServiceController = new CustomerServiceController(
+            this._store
+        );
     }
 
     public get isRunning(): boolean {
@@ -53,7 +55,7 @@ export class GameController {
                         'The customer looks around a little confused. "Uh, it looks a little empty around here... I will try to find my needs elsewhere."'
                     );
                     console.warn(
-                        "??? Your inventory is empty. Stock up to be able to sell items to customers! ???"
+                        "---??? Your inventory is empty. Stock up to be able to sell items to customers! ???---"
                     );
                 }
                 break;
@@ -66,61 +68,8 @@ export class GameController {
     }
 
     public serveCustomer(): void {
-        // customer is looking for an item
-        // for now: random item from inventory.
-        const randomInventoryKey = randomIntFromInterval(
-            0,
-            this.store.inventory.inventory.size
-        );
-        const wantedItem: Product | undefined =
-            this.store.inventory.inventory.get(randomInventoryKey);
-        console.log(
-            '"Yes, hello, I would like to buy the ' +
-                wantedItem?.name +
-                ". " +
-                wantedItem?.price +
-                ` gold pieces sounds good to me."`
-        );
-        if (wantedItem) {
-            let hasDecided = false;
-            while (!hasDecided) {
-                const answer = readsync
-                    .question(
-                        "Sell the " +
-                            wantedItem.name +
-                            " for " +
-                            wantedItem.price +
-                            "? (Y/N)"
-                    )
-                    .toLowerCase();
-                if (answer === "y" || answer == "n") {
-                    hasDecided = true;
-                    if (answer === "y") {
-                        this.store.addGold(wantedItem.price);
-                        this.store.inventory.removeFromInventory(wantedItem);
-                        console.log(
-                            "You place the",
-                            wantedItem.name,
-                            "on the counter for the customer and receive",
-                            wantedItem.price,
-                            "shiny gold pieces in return."
-                        );
-                        console.log(
-                            'You thank the customer for their business. `"Likewise, friend. This will come in handy."`'
-                        );
-                        console.log("\n");
-                        console.log(
-                            "...Another satisfied customer! You now have",
-                            this.store.gold,
-                            "gold."
-                        );
-                    } else {
-                        console.log(
-                            `You decline. "Oh well. I'll have to look elsewhere. It's a fine piece."`
-                        );
-                    }
-                }
-            }
-        }
+        // different questions from customer.
+        // for now: only sell a random item from inventory.
+        this._customerServiceController.sellItemToCustomer();
     }
 }

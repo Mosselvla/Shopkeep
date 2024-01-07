@@ -7,7 +7,7 @@ const gameController: GameController = new GameController();
 const dataCreator: DataCreator = new DataCreator();
 
 // create inventory data
-dataCreator.createData(gameController.store.inventory);
+dataCreator.createData(gameController);
 
 // ask player their name
 gameController.player.name = readsync.question("What is your name?");

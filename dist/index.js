@@ -7,7 +7,7 @@ var dataCreator_1 = require("./assets/data/dataCreator");
 var gameController = new gameController_1.GameController();
 var dataCreator = new dataCreator_1.DataCreator();
 // create inventory data
-dataCreator.createData(gameController.store.inventory);
+dataCreator.createData(gameController);
 // ask player their name
 gameController.player.name = readsync.question("What is your name?");
 console.log("\n_______           _______  _______  _        _______  _______  _______ \n(  ____ |     /|(  ___  )(  ____ )|     /(  ____ (  ____ (  ____ )\n| (    /| )   ( || (   ) || (    )||    / /| (    /| (    /| (    )|\n| (_____ | (___) || |   | || (____)||  (_/ / | (__    | (__    | (____)|\n(_____  )|  ___  || |   | ||  _____)|   _ (  |  __)   |  __)   |  _____)\n      ) || (   ) || |   | || (      |  (   | (      | (      | (      \n/____) || )   ( || (___) || )      |  /   | (____/| (____/| )      \n_______)|/     |(_______)|/       |_/    /(_______/(_______/|/       \n\n");
