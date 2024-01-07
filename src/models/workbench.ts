@@ -1,31 +1,43 @@
 import { Equipment } from "./products/equipment";
 
 enum Quality {
-    BASIC,
-    INTERMEDIATE,
-    EXPERT,
+    Basic,
+    Intermediate,
+    Expert,
 }
 
 export class Workbench {
     private _workbenchQuality: Quality;
 
     constructor() {
-        this._workbenchQuality = Quality.BASIC;
+        this._workbenchQuality = Quality.Basic;
+    }
+
+    public get workbenchQuality(): Quality {
+        return this._workbenchQuality;
+    }
+
+    public get workbenchQualityName(): string {
+        return Quality[this._workbenchQuality];
+    }
+
+    public set workbenchQuality(_workbenchQuality: Quality) {
+        this._workbenchQuality = _workbenchQuality;
     }
 
     public repairWeapon(_weapon: Equipment) {
         switch (this._workbenchQuality) {
-            case Quality.BASIC:
+            case Quality.Basic:
                 _weapon.condition <= 80
                     ? (_weapon.condition += 20)
                     : (_weapon.condition = 100);
                 break;
-            case Quality.INTERMEDIATE:
+            case Quality.Intermediate:
                 _weapon.condition <= 60
                     ? (_weapon.condition += 40)
                     : (_weapon.condition = 100);
                 break;
-            case Quality.EXPERT:
+            case Quality.Expert:
                 _weapon.condition <= 40
                     ? (_weapon.condition += 60)
                     : (_weapon.condition = 100);

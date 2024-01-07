@@ -68,8 +68,9 @@ export class GameController {
     }
 
     public serveCustomer(): void {
-        // different questions from customer.
-        // for now: only sell a random item from inventory.
-        this._customerServiceController.sellItemToCustomer();
+        // different questions from different customer.
+        // TODO: randomize customers and their questions.
+        // this._customerServiceController.sellItemToCustomer();
+        this._customerServiceController.repairItemForCustomer();
     }
 }
