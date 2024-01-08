@@ -21,73 +21,116 @@ export class CustomerServiceController {
         customerEquipment.condition = 43;
         customerEquipment.color = Color.Black;
 
-        // TODO: randomize gold amount that customer offers.
-        // TODO: take condition into account when calculating gold offer.
-        // ^---> the lower the condition, the more the customer pays.
-
-        const goldOffer: number = Math.round(customerEquipment.price / 3);
-        // TODO: implement some cost for the player, otherwise this is free money!
-        // ^---> think about this on a mechanics level.
-        // ----> Could introduce storage of materials in shop which player can buy from customers or markets?
-        // ----> Player will need materials to get some side money, so materials should be cheaper than what the repairing costs.
-        // =======> Much later: implement some type of minigame to make repairing somewhat skill-based.
-        console.log(
-            '"My',
-            customerEquipment.name,
-            "took quite a beating in a fight yesterday... Would you be able to fix her up some? I can offer",
-            goldOffer + ' gold."'
+        const repairCost: number = Math.round(customerEquipment.condition / 2);
+        const ownedRawMaterials = this._store.workplace.rawMaterials.get(
+            customerEquipment.material
         );
-        let hasDecided = false;
-        while (!hasDecided) {
-            console.log(
-                "Your current workbench level is",
-                this._store.workplace.workbench.workbenchQualityName,
-                "."
+        if (ownedRawMaterials && ownedRawMaterials >= repairCost) {
+            // TODO: randomize gold amount that customer offers.
+            // TODO: take condition into account when calculating gold offer.
+            // ^---> the lower the condition, the more the customer pays.
+            const conditionModifier = 2 - customerEquipment.condition / 100;
+            const goldOffer: number = Math.round(
+                (customerEquipment.price / 3) * conditionModifier
             );
-            const answer = readsync
-                .question(
-                    "Repair the " +
-                        customerEquipment.name +
-                        "? You receive " +
-                        goldOffer +
-                        " gold. (y/n)"
-                )
-                .toLowerCase();
-            if (answer === "y" || answer === "n") {
-                hasDecided = true;
-                if (answer === "y") {
-                    // accept the repair
-                    const oldCondition = customerEquipment.condition;
-                    this._store.workplace.workbench.repairWeapon(
-                        customerEquipment
-                    );
-                    this._store.addGold(goldOffer);
-                    console.log(
-                        "Using your",
-                        this._store.workplace.workbench.workbenchQualityName,
-                        "workbench, you repair the",
-                        customerEquipment.name,
-                        "from",
-                        oldCondition,
-                        "to",
-                        customerEquipment.condition + "."
-                    );
-                    // TODO: introduce different dialog based on how much repair took place.
-                    console.log(
-                        `"Well, it's better than nothing I suppose. Might even reach the end of the street, ha! See you."\n`
-                    );
-                    console.log(
-                        "...Another satisfied customer! You now have",
-                        this._store.gold,
-                        "gold."
-                    );
-                } else {
-                    // decline the repair
-                    console.log(
-                        'You decline. \n "Bollocks, how am I gonna defend myself now? Some other time then..."'
-                    );
+
+            // player has required resources to repair weapon.
+            console.log(
+                '"My',
+                customerEquipment.name,
+                "took quite a beating in a fight yesterday... Would you be able to fix her up some? I can offer",
+                goldOffer + ' gold."'
+            );
+            let hasDecided = false;
+            while (!hasDecided) {
+                console.log(
+                    "Your current workbench level is",
+                    this._store.workplace.workbench.workbenchQualityName + "."
+                );
+                console.log(
+                    "Repairing the",
+                    customerEquipment.name,
+                    "would cost you",
+                    repairCost,
+                    Material[customerEquipment.material] + "."
+                );
+                const answer = readsync
+                    .question(
+                        "Repair the " +
+                            customerEquipment.name +
+                            "? You receive " +
+                            goldOffer +
+                            " gold. (y/n)"
+                    )
+                    .toLowerCase();
+                if (answer === "y" || answer === "n") {
+                    hasDecided = true;
+                    console.clear();
+                    if (answer === "y") {
+                        // accept the repair
+                        const oldCondition = customerEquipment.condition;
+                        this._store.workplace.removeRawMaterials(
+                            customerEquipment.material,
+                            repairCost
+                        );
+                        this._store.workplace.workbench.repairWeapon(
+                            customerEquipment
+                        );
+                        this._store.addGold(goldOffer);
+                        console.log(
+                            "Using your",
+                            this._store.workplace.workbench
+                                .workbenchQualityName,
+                            "workbench, you repair the",
+                            customerEquipment.name,
+                            "from",
+                            oldCondition,
+                            "to",
+                            customerEquipment.condition + " condition points."
+                        );
+                        // TODO: introduce different dialog based on how much repair took place.
+                        console.log(
+                            `"Well, it's better than nothing I suppose. Might even reach the end of the street, ha! See you."\n`
+                        );
+                        console.log(
+                            "...Another satisfied customer! You now have",
+                            this._store.gold,
+                            "gold."
+                        );
+                        console.log(
+                            "Repairing the",
+                            customerEquipment.name,
+                            "cost you",
+                            repairCost,
+                            Material[customerEquipment.material] + ".",
+                            "You have",
+                            this._store.workplace.rawMaterials.get(
+                                customerEquipment.material
+                            ),
+                            Material[customerEquipment.material],
+                            "left."
+                        );
+                    } else {
+                        // decline the repair
+                        console.log(
+                            'You decline. \n "Bollocks, how am I gonna defend myself now? Some other time then..."'
+                        );
+                    }
                 }
             }
+        } else {
+            // player does not have required materials
+            console.log(
+                "You do not have the required materials to repair this customer's weapon!"
+            );
+            console.log(
+                "(You have",
+                ownedRawMaterials,
+                "of",
+                repairCost,
+                "required",
+                Material[customerEquipment.material] + ".)"
+            );
         }
     }
 
