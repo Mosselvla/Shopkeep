@@ -34,7 +34,5 @@ console.log(
 
 // game loop
 while (gameController.isRunning) {
-    const action = readsync.question("What would you like to do?");
-    console.clear();
-    gameController.handleAction(action);
+    gameController.handleAction();
 }

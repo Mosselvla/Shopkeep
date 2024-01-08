@@ -1,3 +1,4 @@
+import * as readsync from "readline-sync";
 import { Player } from "../models/player";
 import { Store } from "../models/store";
 import { CustomerServiceController } from "./customerServiceController";
@@ -37,29 +38,27 @@ export class GameController {
         return this._store;
     }
 
-    public handleAction(_action: string): void {
-        switch (_action.toLowerCase()) {
-            case "move":
+    public handleAction(): void {
+        const actions: string[] = ["Move", "Serve", "End"];
+        console.log("What would you like to do?");
+        const actionIndex = readsync.keyInSelect(
+            actions,
+            "Choose an option by typing a number:"
+        );
+        console.clear();
+        switch (actions[actionIndex]) {
+            case actions[0]:
                 // move somewhere
                 console.log("You move boi.");
                 break;
-            case "serve":
-                if (this.store.inventory.inventory.size > 0) {
-                    // serve a customer
-                    console.log(
-                        "You approach the first customer in line at the front of the shop."
-                    );
-                    this.serveCustomer();
-                } else {
-                    console.log(
-                        'The customer looks around a little confused. "Uh, it looks a little empty around here... I will try to find my needs elsewhere."'
-                    );
-                    console.warn(
-                        "---??? Your inventory is empty. Stock up to be able to sell items to customers! ???---"
-                    );
-                }
+            case actions[1]:
+                // serve a customer
+                console.log(
+                    "You approach the first customer in line at the front of the shop."
+                );
+                this.serveCustomer();
                 break;
-            case "end":
+            case actions[2]:
                 // end game
                 this.isRunning = false;
                 console.log("Goodbye!");
