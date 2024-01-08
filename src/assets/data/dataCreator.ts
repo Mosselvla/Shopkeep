@@ -69,5 +69,18 @@ export class DataCreator {
         _gC.store.inventory.placeInInventory(csm1);
         _gC.store.inventory.placeInInventory(csm2);
         _gC.store.inventory.placeInInventory(csm3);
+
+        // stock up on raw materials
+        _gC.store.workplace.addRawMaterials(Material.Wool, 50);
+        _gC.store.workplace.addRawMaterials(Material.Linen, 30);
+        _gC.store.workplace.addRawMaterials(Material.Silk, 10);
+        _gC.store.workplace.addRawMaterials(Material.Wood, 100);
+        _gC.store.workplace.addRawMaterials(Material.Copper, 60);
+        _gC.store.workplace.addRawMaterials(Material.Iron, 40);
+        _gC.store.workplace.addRawMaterials(Material.Steel, 20);
+        _gC.store.workplace.addRawMaterials(Material.Silver, 10);
+        _gC.store.workplace.addRawMaterials(Material.Gold, 5);
+        _gC.store.workplace.addRawMaterials(Material.Titanium, 2);
+        _gC.store.workplace.addRawMaterials(Material.Diamond, 1);
     }
 }

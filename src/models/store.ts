@@ -1,19 +1,15 @@
 import { Inventory } from "./inventory";
-import { Workbench } from "./workbench";
+import { Workplace } from "./workplace";
 
 export class Store {
     private _gold: number;
     private _inventory: Inventory;
-    private _workbench: Workbench;
+    private _workplace: Workplace;
 
     constructor() {
         this._gold = 500;
         this._inventory = new Inventory();
-        this._workbench = new Workbench();
-    }
-
-    public get workbench(): Workbench {
-        return this._workbench;
+        this._workplace = new Workplace();
     }
 
     public get gold(): number {
@@ -22,6 +18,10 @@ export class Store {
 
     public get inventory(): Inventory {
         return this._inventory;
+    }
+
+    public get workplace(): Workplace {
+        return this._workplace;
     }
 
     public addGold(_amount: number): void {

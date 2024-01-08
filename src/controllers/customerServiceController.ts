@@ -41,7 +41,7 @@ export class CustomerServiceController {
         while (!hasDecided) {
             console.log(
                 "Your current workbench level is",
-                this._store.workbench.workbenchQualityName,
+                this._store.workplace.workbench.workbenchQualityName,
                 "."
             );
             const answer = readsync
@@ -58,11 +58,13 @@ export class CustomerServiceController {
                 if (answer === "y") {
                     // accept the repair
                     const oldCondition = customerEquipment.condition;
-                    this._store.workbench.repairWeapon(customerEquipment);
+                    this._store.workplace.workbench.repairWeapon(
+                        customerEquipment
+                    );
                     this._store.addGold(goldOffer);
                     console.log(
                         "Using your",
-                        this._store.workbench.workbenchQualityName,
+                        this._store.workplace.workbench.workbenchQualityName,
                         "workbench, you repair the",
                         customerEquipment.name,
                         "from",
