@@ -1,5 +1,5 @@
 import { randomIntFromInterval } from "../lib/utils";
-import { Color, Equipment, Material } from "../models/products/equipment";
+import { Color, Equipment, MaterialType } from "../models/products/equipment";
 import { Product } from "../models/products/product";
 import { Store } from "../models/store";
 import * as readsync from "readline-sync";
@@ -17,14 +17,15 @@ export class CustomerServiceController {
         // TODO: implement skill level. can you repair items of this material?
         const customerEquipment: Equipment = new Equipment();
         (customerEquipment.name = "Halberd"), (customerEquipment.price = 80);
-        customerEquipment.material = Material.Iron;
+        customerEquipment.material = MaterialType.Iron;
         customerEquipment.condition = 43;
         customerEquipment.color = Color.Black;
 
         const repairCost: number = Math.round(customerEquipment.condition / 2);
-        const ownedRawMaterials = this._store.workplace.rawMaterials.get(
-            customerEquipment.material
-        );
+        const ownedRawMaterials =
+            this._store.workplace.materialPouch.getMaterialCount(
+                customerEquipment.material
+            );
         if (ownedRawMaterials && ownedRawMaterials >= repairCost) {
             // TODO: randomize gold amount that customer offers.
             // TODO: take condition into account when calculating gold offer.
@@ -52,7 +53,7 @@ export class CustomerServiceController {
                     customerEquipment.name,
                     "would cost you",
                     repairCost,
-                    Material[customerEquipment.material] + "."
+                    MaterialType[customerEquipment.material] + "."
                 );
                 const answer = readsync
                     .question(
@@ -69,7 +70,7 @@ export class CustomerServiceController {
                     if (answer === "y") {
                         // accept the repair
                         const oldCondition = customerEquipment.condition;
-                        this._store.workplace.removeRawMaterials(
+                        this._store.workplace.materialPouch.removeRawMaterials(
                             customerEquipment.material,
                             repairCost
                         );
@@ -102,12 +103,12 @@ export class CustomerServiceController {
                             customerEquipment.name,
                             "cost you",
                             repairCost,
-                            Material[customerEquipment.material] + ".",
+                            MaterialType[customerEquipment.material] + ".",
                             "You have",
-                            this._store.workplace.rawMaterials.get(
+                            this._store.workplace.materialPouch.getMaterialCount(
                                 customerEquipment.material
                             ),
-                            Material[customerEquipment.material],
+                            MaterialType[customerEquipment.material],
                             "left."
                         );
                     } else {
@@ -129,7 +130,7 @@ export class CustomerServiceController {
                 "of",
                 repairCost,
                 "required",
-                Material[customerEquipment.material] + ".)"
+                MaterialType[customerEquipment.material] + ".)"
             );
         }
     }

@@ -6,11 +6,23 @@ export class Inventory {
 
     constructor() {
         this._inventory = new Map<number, Product>();
-        this._maxInventorySize = 10;
+        this._maxInventorySize = 0;
     }
 
     public get inventory(): Map<number, Product> {
         return this._inventory;
+    }
+
+    public get maxInventorySize(): number {
+        return this._maxInventorySize;
+    }
+
+    public set maxInventorySize(_maxInventorySize: number) {
+        this._maxInventorySize = _maxInventorySize;
+    }
+
+    public isEmpty(): boolean {
+        return this._inventory.size === 0;
     }
 
     public placeInInventory(_product: Product): boolean {

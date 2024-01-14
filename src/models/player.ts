@@ -1,4 +1,5 @@
 export class Player {
+    // TODO: implement energy system to make player consider actions by energy expense
     private _name: string;
 
     constructor() {

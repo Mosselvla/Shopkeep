@@ -2,6 +2,7 @@ import * as readsync from "readline-sync";
 import { Player } from "../models/player";
 import { Store } from "../models/store";
 import { CustomerServiceController } from "./customerServiceController";
+import { MarketController } from "./marketController";
 
 export enum Action {
     Move,
@@ -12,6 +13,7 @@ export class GameController {
     private _player: Player;
     private _store: Store;
     private _customerServiceController: CustomerServiceController;
+    private _marketController: MarketController;
 
     constructor() {
         this._isRunning = true;
@@ -20,6 +22,7 @@ export class GameController {
         this._customerServiceController = new CustomerServiceController(
             this._store
         );
+        this._marketController = new MarketController();
     }
 
     public get isRunning(): boolean {
@@ -38,8 +41,12 @@ export class GameController {
         return this._store;
     }
 
+    public get marketController(): MarketController {
+        return this._marketController;
+    }
+
     public handleAction(): void {
-        const actions: string[] = ["Move", "Serve", "End"];
+        const actions: string[] = ["Go to Market", "Serve Customer", "End"];
         console.log("What would you like to do?");
         const actionIndex = readsync.keyInSelect(
             actions,
@@ -48,8 +55,11 @@ export class GameController {
         console.clear();
         switch (actions[actionIndex]) {
             case actions[0]:
-                // move somewhere
-                console.log("You move boi.");
+                // go to the market for supplies
+                console.log(
+                    "You lock the door behind you and go to the Market nearby."
+                );
+                this.visitMarket();
                 break;
             case actions[1]:
                 // serve a customer
@@ -64,6 +74,11 @@ export class GameController {
                 console.log("Goodbye!");
                 break;
         }
+    }
+
+    public visitMarket(): void {
+        // show player available stalls to visit
+        this._marketController.visitMarket();
     }
 
     public serveCustomer(): void {

@@ -1,6 +1,6 @@
 import { Product } from "./product";
 
-export enum Material {
+export enum MaterialType {
     Wool,
     Linen,
     Silk,
@@ -18,6 +18,7 @@ export enum Color {
     Green,
     Orange,
     Magenta,
+    Pink,
     Yellow,
     Blue,
     Red,
@@ -27,21 +28,21 @@ export enum Color {
 }
 
 export class Equipment extends Product {
-    private _material: Material;
+    private _material: MaterialType;
     private _condition: number;
     private _color?: Color;
 
     constructor() {
         super();
-        this._material = Material.Wood;
+        this._material = MaterialType.Wood;
         this._condition = 100;
     }
 
-    public get material(): Material {
+    public get material(): MaterialType {
         return this._material;
     }
 
-    public set material(_material: Material) {
+    public set material(_material: MaterialType) {
         this._material = _material;
     }
 

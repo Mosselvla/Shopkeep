@@ -1,46 +1,21 @@
-import { Material } from "./products/equipment";
+import { MaterialType } from "./products/equipment";
+import { MaterialPouch } from "./materialPouch";
 import { Workbench } from "./workbench";
 
 export class Workplace {
     private _workbench: Workbench;
-    private _rawMaterials: Map<Material, number>;
+    private _materialPouch: MaterialPouch;
 
     constructor() {
         this._workbench = new Workbench();
-        this._rawMaterials = new Map<Material, number>();
+        this._materialPouch = new MaterialPouch();
     }
 
     public get workbench(): Workbench {
         return this._workbench;
     }
 
-    public get rawMaterials(): Map<Material, number> {
-        return this._rawMaterials;
-    }
-
-    public addRawMaterials(_materialType: Material, _amount: number): void {
-        const _rawMaterial = this._rawMaterials.get(_materialType);
-        if (_rawMaterial) {
-            // material already exists
-            this._rawMaterials.set(_materialType, _rawMaterial + _amount);
-        } else {
-            // material does not yet exist
-            this._rawMaterials.set(_materialType, _amount);
-        }
-    }
-
-    public removeRawMaterials(_materialType: Material, _amount: number): void {
-        const _rawMaterial = this._rawMaterials.get(_materialType);
-        if (_rawMaterial) {
-            // material already exists
-            if (_rawMaterial - _amount < 0) {
-                // prevent negative number, go to zero
-                this._rawMaterials.set(_materialType, 0);
-            } else {
-                this._rawMaterials.set(_materialType, _rawMaterial - _amount);
-            }
-        }
-        // no else, cannot remove what doesnt exist
-        // "van 'n kale kip kende nie plukke" -Barack Obama
+    public get materialPouch(): MaterialPouch {
+        return this._materialPouch;
     }
 }
