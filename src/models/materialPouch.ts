@@ -16,6 +16,13 @@ export class MaterialPouch {
         return result ? result : 0;
     }
 
+    public getAvailableMaterials() {
+        const _rawMaterialEntriesArray = Array.from(
+            this._rawMaterials.entries()
+        );
+        return _rawMaterialEntriesArray.filter(([_key, value]) => value !== 0);
+    }
+
     public addRawMaterials(_materialType: MaterialType, _amount: number): void {
         const _rawMaterial = this._rawMaterials.get(_materialType);
         if (_rawMaterial) {

@@ -1,6 +1,6 @@
 import * as readsync from "readline-sync";
 import { Stall } from "../models/stall";
-import { MaterialType } from "../models/products/equipment";
+import { StallController } from "./stallController";
 
 export class MarketController {
     private _stalls: Stall[];
@@ -40,38 +40,16 @@ export class MarketController {
             if (stallIndex === -1) {
                 this._isAtMarket = false;
                 console.clear();
-                console.log('You walk back to the store and get settled, ready to continue your work.');
+                console.log(
+                    "You walk back to the store and get settled, ready to continue your work."
+                );
             } else {
-                this.visitStall(this._stalls[stallIndex]);
+                console.clear();
+                const stallController: StallController = new StallController(
+                    this._stalls[stallIndex]
+                );
+                stallController.visitStall();
             }
-        }
-    }
-
-    public visitStall(_stall: Stall) {
-        console.log("You walk up to", _stall.name, ".");
-        console.log("They sell the following things:");
-        if (_stall.inventory.inventory.size > 0) {
-            console.log("Products for sale:");
-            console.log(_stall.inventory.inventory.entries());
-        }
-        console.log("\n");
-        if (_stall.materialPouch.hasMaterials()) {
-            console.log("Materials for sale:");
-            // TODO: find a way to list all materials from map
-            // One way: just get() all materialTypes by looping over MaterialType enum
-            // Then only show those with value higher than 0
-            console.log(
-                "Copper:",
-                _stall.materialPouch.getMaterialCount(MaterialType.Copper)
-            );
-            console.log(
-                "Iron:",
-                _stall.materialPouch.getMaterialCount(MaterialType.Iron)
-            );
-            console.log(
-                "Steel:",
-                _stall.materialPouch.getMaterialCount(MaterialType.Steel)
-            );
         }
     }
 }
