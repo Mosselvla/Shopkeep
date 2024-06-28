@@ -19,6 +19,7 @@ export class MarketController {
     }
 
     public visitMarket(): void {
+        this._isAtMarket = true;
         console.clear();
         console.log(
             "It seems that there are",
@@ -36,7 +37,13 @@ export class MarketController {
                 stallNames,
                 "Choose a stall to visit by typing a number:"
             );
-            this.visitStall(this._stalls[stallIndex]);
+            if (stallIndex === -1) {
+                this._isAtMarket = false;
+                console.clear();
+                console.log('You walk back to the store and get settled, ready to continue your work.');
+            } else {
+                this.visitStall(this._stalls[stallIndex]);
+            }
         }
     }
 

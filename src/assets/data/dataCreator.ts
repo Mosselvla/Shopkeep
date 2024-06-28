@@ -126,10 +126,12 @@ export class DataCreator {
         _stall1.materialPouch.addRawMaterials(MaterialType.Copper, 230);
         _stall1.materialPouch.addRawMaterials(MaterialType.Iron, 500);
         _stall1.materialPouch.addRawMaterials(MaterialType.Steel, 135);
+        _stall1.inventory.maxInventorySize = 100;
 
         const _stall2: Stall = new Stall();
         _stall2.name = `Pookipie the Quartermistress`;
         _stall2.gold = 680;
+        _stall2.inventory.maxInventorySize = 100;
 
         const _stall2eq1 = new Equipment();
         _stall2eq1.name = "Frying Pan";

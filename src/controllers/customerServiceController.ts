@@ -55,6 +55,7 @@ export class CustomerServiceController {
                     repairCost,
                     MaterialType[customerEquipment.material] + "."
                 );
+                console.log("You currently have", ownedRawMaterials, MaterialType[customerEquipment.material], ".")
                 const answer = readsync
                     .question(
                         "Repair the " +
