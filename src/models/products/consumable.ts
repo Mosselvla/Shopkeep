@@ -12,9 +12,12 @@ export enum Effect {
 export class Consumable extends Product {
     private _effect: Effect;
 
-    constructor() {
+    constructor(name?: string, price?: number, effect?: number) {
         super();
         this._effect = Effect.Healing;
+        if (name) this.name = name;
+        if (price) this.price = price;
+        if (effect) this._effect = effect;
     }
 
     public get effect(): Effect {

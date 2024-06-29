@@ -32,10 +32,21 @@ export class Equipment extends Product {
     private _condition: number;
     private _color?: Color;
 
-    constructor() {
+    constructor(
+        name?: string,
+        price?: number,
+        condition?: number,
+        material?: number,
+        color?: number
+    ) {
         super();
         this._material = MaterialType.Wood;
         this._condition = 100;
+        if (name) this.name = name;
+        if (price) this.price = price;
+        if (condition) this._condition = condition;
+        if (material) this._material = material;
+        if (color) this._color = color;
     }
 
     public get material(): MaterialType {

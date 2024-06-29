@@ -1,0 +1,60 @@
+{
+    "equipment": [
+        {
+            "name": "Dagger",
+            "price": 250,
+            "condition": 95,
+            "material": 8
+        },
+        {
+            "name": "Helmet",
+            "price": 40,
+            "condition": 75,
+            "material": 5
+        },
+        {
+            "name": "Cloak",
+            "price": 150,
+            "condition": 90,
+            "material": 2,
+            "color": 8
+        },
+        {
+            "name": "Mace",
+            "price": 60,
+            "condition": 70,
+            "material": 5
+        },
+        {
+            "name": "Pickaxe",
+            "price": 225,
+            "condition": 85,
+            "material": 9,
+            "color": 7
+        },
+        {
+            "name": "Broadsword",
+            "price": 120,
+            "condition": 70,
+            "material": 5
+        }
+    ],
+
+    "consumables": [
+        {
+            "name": "Tincture",
+            "price": 175,
+            "effect": 1
+        },
+        {
+            "name": "Large Potion",
+            "price": 250,
+            "effect": 0
+        },
+        {
+            "name": "Coagulate",
+            "price": 115,
+            "effect": 3
+        }
+    ]
+}

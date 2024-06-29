@@ -6,6 +6,7 @@ import {
     Color,
 } from "../../models/products/equipment";
 import { Stall } from "../../models/stall";
+import { DataCreatorService } from "../../services/dataCreatorService";
 
 export class DataCreator {
     createData(_gC: GameController) {
@@ -75,6 +76,11 @@ export class DataCreator {
         _gC.store.inventory.placeInInventory(csm1);
         _gC.store.inventory.placeInInventory(csm2);
         _gC.store.inventory.placeInInventory(csm3);
+
+        // const dataCreatorService: DataCreatorService = new DataCreatorService();
+        // dataCreatorService.createData(_gC);
+        // ^^^currently has a bug concerning json import, only occurs during compilation.
+        // services/dataCreatorService.ts:2:27 - error TS2732: Cannot find module '../assets/data/testData.json'. Consider using '--resolveJsonModule' to import module with '.json' extension.
 
         // stock up on raw materials
         _gC.store.workplace.materialPouch.addRawMaterials(
